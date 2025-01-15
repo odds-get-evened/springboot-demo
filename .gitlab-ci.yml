@@ -1,0 +1,14 @@
+image: maven:3.9.9-eclipse-temurin-21
+
+stages:
+  - build
+  - release
+  - create_docker_image
+  - code_bug_check
+
+code_bug_check:
+  stage: code_bug_check
+  allow-failure: false
+  script:
+    - echo "running code scan"
+    - mvn pmd:check

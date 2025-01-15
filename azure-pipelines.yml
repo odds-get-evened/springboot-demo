@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+# set up variables for pipeline hosting environments
+strategy:
+  matrix:
+    jdk21_linux:
+      imageName: "ubuntu-latest"
+      jdkVersion: "21"
+    jdK21_windows:
+      imageName: "windows-latest"
+      jdkVersion: "21"
+  maxParallel: 1
+
+pool:
+  vmIMage: $(imageName)
+
+steps:
+  - task: Maven@4
+    inputs:
+      mavenPomFile: "pom.xml"
+      mavenOptions: "-Xmx3072m"
+      javaHomeOption: "JDKVersion"
+      jdkVersionOption: $(jdkVersion)
+      jdkArchitectureOption: "x64"
+      publishJUnitResults: true
+      testResultsFiles: "**/TEST-*.xml"
+      goals: "package"

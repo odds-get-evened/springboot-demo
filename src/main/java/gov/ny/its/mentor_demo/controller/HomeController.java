@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class HelloWorldController {
+public class HomeController {
 	@RequestMapping("/")
 	public String index() {
 		return "index";
@@ -16,6 +16,11 @@ public class HelloWorldController {
 	@GetMapping("/another_place_to_go")
 	public String anotherPlaceToGo() {
 		return "another_place_to_go";
+	}
+
+	@GetMapping("/howto/authentication")
+	public String howToAuth() {
+		return "howto/authentication";
 	}
 
 	@GetMapping("/greeting")

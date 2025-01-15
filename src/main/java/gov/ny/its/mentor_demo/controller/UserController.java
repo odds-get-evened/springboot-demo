@@ -34,4 +34,21 @@ public class UserController {
 
 		return "user/add-success";
 	}
+
+	@GetMapping("/user/login")
+	public String userLogin(Model m) {
+		m.addAttribute("user", new User());
+
+		return "user/login";
+	}
+
+	@PostMapping("/user/login")
+	public String procUserLogin(@ModelAttribute("user") User u, Model m) {
+		String encPass = passwordEncoder.encode(u.getPasswd());
+		u.setPasswd(encPass);
+
+		userRepo.save(u);
+
+		return "user/login-success";
+	}
 }

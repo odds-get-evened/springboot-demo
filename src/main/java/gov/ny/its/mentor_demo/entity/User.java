@@ -15,7 +15,7 @@ public class User {
 	private String passwd;
 
 	@Column(name = "is_active")
-	private Boolean isActive;
+	private int isActive = 0;  // by establishing the value here will set NULL input values to 0
 
 	public Long getId() {
 		return id;

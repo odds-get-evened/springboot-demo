@@ -19,12 +19,13 @@ public class SecurityConfig {
 	// configure secure areas of application
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity sec) throws Exception {
-		sec.authorizeHttpRequests(
-				(req) -> {
+		sec.authorizeHttpRequests((req) -> {
 					req.requestMatchers("/inv/**").authenticated();
 					req.anyRequest().permitAll();
-				}
-		);
+				}).formLogin((form) -> {
+					form.loginPage("/user/login");
+					form.permitAll();
+				}).logout((logout) -> logout.permitAll());
 
 		return sec.build();
 	}

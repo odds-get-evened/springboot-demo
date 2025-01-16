@@ -1,8 +1,9 @@
 trigger:
   branches:
-    include:
+    include:    # add any branches that you want included in this pipeline
       - main
       - dev
+      - feature-az_pipelines
 
 stages:
   # stage 1: development - test and debug

@@ -1,28 +1,69 @@
 trigger:
-  - main
+  branches:
+    include:
+      - main
+      - dev
 
-# set up variables for pipeline hosting environments
-strategy:
-  matrix:
-    jdk21_linux:
-      imageName: "ubuntu-latest"
-      jdkVersion: "21"
-    jdK21_windows:
-      imageName: "windows-latest"
-      jdkVersion: "21"
-  maxParallel: 1
-
-pool:
-  vmIMage: $(imageName)
-
-steps:
-  - task: Maven@4
-    inputs:
-      mavenPomFile: "pom.xml"
-      mavenOptions: "-Xmx3072m"
-      javaHomeOption: "JDKVersion"
-      jdkVersionOption: $(jdkVersion)
-      jdkArchitectureOption: "x64"
-      publishJUnitResults: true
-      testResultsFiles: "**/TEST-*.xml"
-      goals: "package"
+stages:
+  # stage 1: development - test and debug
+  - stage: development
+    displayName: development stage
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/dev')    # this is referencing the dev branch
+    jobs:
+      - job: test_and_debug
+        displayName: run tests and debug
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          JAVA_HOME: '/usr/lib/jvm/java-21-openjdk-amd64'
+          MAVEN_OPTS: '-Xmx1024m'
+        steps:
+          # step 1: checkout code
+          - task: Checkout@1
+          # step 2: set up JDK
+          - task: UseJavaVersion@1
+            inputs:
+              versionSpec: '21'
+              jdkArchitecture: 'x64'
+          # step 3: cache Maven dependencies
+          - task: Cache@2
+            inputs:
+              key: 'maven | "$(Agent.OS)" | **/pom.xml'
+              restoreKeys: | 
+                  maven | "$(Agent.OS)"
+              path: ~/.m2/repository
+          # step 4: build and run tests
+          - script: | 
+              mvn clean test
+            displayName: 'run unit tests'
+          # step 5: debug
+          - script: |
+              echo "debugging application"
+              # add debug commands here
+            displayName: 'debug application'
+  # stage 2: main - publish artifact
+  - stage: main
+    displayName: 'publish artifact stage'
+    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), or(variables[''], 'refs/heads/feature-az_pipelines'))   # referencing the branch
+    jobs:
+      - job: publish_artifact
+        displayName: 'publish build artifact'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          # step 1: checkout code
+          - task: Checkout@1
+          # step 2: build application
+          - task: UseJavaVersion@1
+            inputs:
+              versionSpec: '21'
+              jdkArchitecture: 'x64'
+          - script: |
+              mvn clean package
+            displayName: 'build java project'
+          # step 3: publish artifact from build
+          - task: PublishBuildArtifact@1
+            inputs:
+              pathToPublish: 'target/*.jar'
+              artifactName: 'springbootapp'
+              publishLocation: 'Pipeline'

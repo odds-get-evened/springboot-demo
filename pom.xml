@@ -13,33 +13,6 @@
 	<name>mentor-demo</name>
 	<description>Demo for mentoring</description>
 
-	<repositories>
-		<!-- maven repo for Azure Pipelines artifact deployment set up -->
-		<repository>
-			<id>test_feed</id>
-			<url>http://dot0631pw5web/ITS%20for%20EET-DOT/b23f558b-c247-450d-a74c-5d84866575a8/_packaging/test_feed/maven/v1</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>test_feed</id>
-			<url>http://dot0631pw5web/ITS%20for%20EET-DOT/b23f558b-c247-450d-a74c-5d84866575a8/_packaging/test_feed/maven/v1</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</distributionManagement>
-
 	<properties>
 		<java.version>21</java.version>
 		<pmd.version>3.23.0</pmd.version>

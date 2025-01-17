@@ -6,19 +6,22 @@ trigger:
       - feature-az_pipelines
 
 stages:
-  - stage: build
+  - stage: Build
     displayName: "build and package"
-    steps:
-      - task: Checkout@1
-        displayName: "checkout code"
-      - task: UseJavaVersion@1
-        inputs:
-          version: '21'
-          architecture: 'x64'
-      - script: |
-          mvn clean package -DskipTests
-        displayName: "maven: clean and package build"
-      - task: PublishPipelineArtifact@1
+    jobs:
+      - job: BuildJob
+        steps:
+          - task: Checkout@1
+            displayName: "checkout code"
+          - task: UseJavaVersion@1
+            inputs:
+              version: '21'
+              architecture: 'x64'
+          - script: |
+              echo "cleaning up old packages and packaging build with Maven"
+              mvn clean package -DskipTests
+            displayName: "maven: clean and package build"
+          - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(System.DefaultWorkingDirectory)/target'
           artifact: 'test_feed'

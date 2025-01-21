@@ -2,7 +2,7 @@ trigger:
   - feature-az_pipelines
 
 pool:
-  name: 'ubuntu-20.04'
+  name: 'ubuntu-24.04'
 
 steps:
   - task: Maven@3

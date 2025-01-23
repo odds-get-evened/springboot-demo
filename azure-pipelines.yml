@@ -1,0 +1,17 @@
+trigger:
+  - feature-az_pipelines
+
+pool:
+  name: 'ubuntu-24.04'
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '21'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: false
+      testResultsFiles: '**.surefire-reports/TEST-*.xml'
+      goals: 'package'

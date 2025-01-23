@@ -1,10 +1,10 @@
 package gov.ny.its.mentor_demo.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -13,20 +13,16 @@ public class HomeController {
 		return "index";
 	}
 
-	@GetMapping("/another_place_to_go")
-	public String anotherPlaceToGo() {
-		return "another_place_to_go";
+	@GetMapping("/user/login")
+	public String userLogin() { return "user/login"; }
+
+	@GetMapping("/login/oauth2/code/okta")
+	public String ssoLogin() {
+		return "redirect:/secret/place";
 	}
 
-	@GetMapping("/howto/authentication")
-	public String howToAuth() {
-		return "howto/authentication";
-	}
-
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="world") String name, Model model) {
-		model.addAttribute("name", name);
-
-		return "greeting";
+	@GetMapping("/secret/place")
+	public String secretPlace(@AuthenticationPrincipal OidcUser principal) {
+		return "secret/place";
 	}
 }

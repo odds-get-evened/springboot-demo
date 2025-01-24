@@ -19,6 +19,8 @@ stages:
 
           # set up Java
           - task: UseJavaVersion@1
+            # keep getting an error saying this task name is "missing"
+            # indicating that it's not installed.
             inputs:
               versionSpec: '$(javaVersion)'
               jdkArchitecture: 'x64'

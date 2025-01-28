@@ -12,6 +12,8 @@ stages:
     displayName: 'Build and analyze source code'
     jobs:
       - job: 'Build'
+        # only build on feature-az_pipeline branch
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/feature-az_pipelines')
         displayName: 'Build job'
         steps:
           # checkout code

@@ -21,6 +21,11 @@ public class HttpRequestTest {
 
 	@Test
 	void greetingShouldReturnDefaultMessage() {
-		assertThat(this.restTemplate.getForObject("http://localhost:".concat(String.valueOf(port)).concat("/smoke-test"), String.class)).contains("Hello, World");
+		// check for valid text on a specific endpoint
+		assertThat(
+				this.restTemplate.getForObject(
+						"http://localhost:".concat(String.valueOf(port)).concat("/smoke-test"),
+						String.class
+				)).contains("Hello, World");
 	}
 }

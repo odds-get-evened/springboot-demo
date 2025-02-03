@@ -27,7 +27,7 @@ public class HomeController {
 	public String userLogin() { return "user/login"; }
 
 	@GetMapping("/login/oauth2/code/okta")
-	public String ssoLoginSucces() {
+	public String ssoLoginSuccess() {
 		return "redirect:/secret/place";
 	}
 

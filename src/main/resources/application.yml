@@ -9,6 +9,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      # ddl-update: none    # don't auto-generate tables
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
 okta:
   oauth2:
     # https://manage.auth0.com/dashboard/us/dev-dhijwyx8bu07cdbi/applications/G77xtaHMVX27pVWqwEsg8SNMkGHpeoLW/quickstart

@@ -1,0 +1,23 @@
+<div class="row" layout:fragment="page_content" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+    <form method="post" th:action="@{/account/register}" th:object="${user}">
+        <div class="form-group">
+            <label for="email">email address</label>
+            <input type="email" id="email" name="email" th:field="*{email}">
+        </div>
+        <div class="form-group">
+            <label for="firstname">first name</label>
+            <input type="text" id="firstname" name="firstname" th:field="*{firstName}">
+        </div>
+        <div class="form-group">
+            <label for="lastname">last name</label>
+            <input type="text" id="lastname" name="lastname" th:field="*{lastName}">
+        </div>
+        <div class="form-group">
+            <label for="passwd">password</label>
+            <input type="text" id="passwd" name="passwd" th:field="*{password}">
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">register</button>
+        </div>
+    </form>
+</div>

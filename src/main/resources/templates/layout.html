@@ -13,7 +13,7 @@
                     Not logged in, so <a th:href="@{/oauth2/authorization/okta}">login</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    Welcome, you are logged in.
+                    Welcome, you are logged in. <a th:href="@{/logout}">logout</a>
                 </div>
             </div>
             <div class="row" layout:fragment="page_content">

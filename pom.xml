@@ -87,7 +87,7 @@
 			</plugin>
 			<!--
 			PMD for Java only bug-checking
-			@todo have PMD report to pipeline success or failure
+			@todo have PMD report to pipeline success or failure somehow, so that it will trigger next steps in pipeline process.
 			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

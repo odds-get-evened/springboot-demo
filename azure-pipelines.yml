@@ -1,7 +1,7 @@
 # https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops
 
 trigger:
-  - '*' # all the branches wildcard
+  - 'main'
 
 variables:
   mavenVersion: '3.9.6'
@@ -12,8 +12,8 @@ stages:
     displayName: 'Build and analyze source code'
     jobs:
       - job: 'Build'
-        # only build on feature-az_pipeline branch
-        condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+        # only build off the `main` branch
+        # condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
         displayName: 'Build job'
         steps:
           # checkout code

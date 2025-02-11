@@ -1,17 +1,11 @@
 package gov.ny.its.mentor_demo.security;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 /**
  * primary configuration for application security
@@ -19,24 +13,20 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 @Configuration
 @EnableWebSecurity
 public class MentorSecurityConfig {
-	private final Environment environment;
-
-	public MentorSecurityConfig(Environment environment) {
-		this.environment = environment;
-	}
-
 	@Bean
-	public SecurityFilterChain configure(HttpSecurity sec) throws Exception {
-		sec.authorizeHttpRequests((auth) -> {
+	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests((auth) -> {
 			auth.requestMatchers("/login/**", "/account/register", "/logout").permitAll();
 			auth.requestMatchers("/secret/**").authenticated();
 			auth.anyRequest().permitAll();
 		});
 
-		/*
-		 * @todo bypass the auth0 logout confirmation (defaults to this for some reason)
+		/**
+		 * important to use a logout form in templates
+		 * or you will have to force users to confirm logout.
+		 * an unnecessary extra step
 		 */
-		sec.logout((logout) -> {
+		http.logout((logout) -> {
 			logout.logoutUrl("/logout");
 			logout.logoutSuccessUrl("/");
 			logout.invalidateHttpSession(true);
@@ -44,8 +34,8 @@ public class MentorSecurityConfig {
 		});
 
 		// assign the Okta login to the security instance
-		sec.oauth2Login(Customizer.withDefaults());
+		http.oauth2Login(Customizer.withDefaults());
 
-		return sec.build();
+		return http.build();
 	}
 }

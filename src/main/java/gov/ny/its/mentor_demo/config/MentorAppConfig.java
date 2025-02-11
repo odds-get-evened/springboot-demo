@@ -1,4 +1,4 @@
-package gov.ny.its.mentor_demo.security;
+package gov.ny.its.mentor_demo.config;
 
 import gov.ny.its.mentor_demo.util.SHAPasswordEncoder;
 import nz.net.ultraq.thymeleaf.LayoutDialect;

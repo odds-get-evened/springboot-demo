@@ -1,9 +1,15 @@
 package gov.ny.its.mentor_demo.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,5 +40,16 @@ public class HomeController {
 	@GetMapping("/secret/place")
 	public String secretPlace(@AuthenticationPrincipal OidcUser principal) {
 		return "secret/place";
+	}
+
+	// placeholder for Okta logout process
+	@PostMapping("/logout")
+	public String logout(HttpServletRequest req, HttpServletResponse res) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null) {
+			new SecurityContextLogoutHandler().logout(req, res, auth);
+		}
+
+		return "redirect:/";
 	}
 }

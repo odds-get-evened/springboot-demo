@@ -1,14 +1,59 @@
+# grab a VM image (here we are getting maven for Java 21
 image: maven:3.9.9-eclipse-temurin-21
+
+variables:
+  MAVEN_CLI_OPTS: "-B -DskipTests"
 
 stages:
   - build
-  - release
-  - create_docker_image
-  - code_bug_check
+  - test
+  - package
+  - publish
+  - deploy
 
-code_bug_check:
-  stage: code_bug_check
-  allow-failure: false
+
+# ----- build job -----
+build:
+  stage: build
   script:
-    - echo "running code scan"
-    - mvn pmd:check
+    - mvn clean compile ${MAVEN_CLI_OPTS}
+  only:
+    # Git branch triggers
+    - build-main
+    - main
+  artifacts:
+    paths:
+      - target/
+
+# ----- test job -----
+test:
+  stage: test
+  script:
+    - echo "initializing unit testing"
+    - mvn test
+    - only:
+        - test-main
+        - build-main
+
+# ----- package job -----
+package:
+  stage: package
+  script:
+    - echo "generating package for artifact"
+    - mvn package ${MAVEN_CLI_OPTS}
+  only:
+    - build-main
+    - package-main
+    - main
+
+# ----- deploy to server(s) -----
+deploy:
+  stage: deploy
+  script:
+    - echo "deploying to server..."
+    # some example commands that upload artifact over secure shell
+    - echo "uploading to server"
+    # - scp target/*.jar user@the-server.ny.gov:/deployment/path/
+    - echo "restarting service"
+    # - ssh user@the-server "systemctl restart service-name-here"
+

@@ -56,4 +56,3 @@ deploy:
     # - scp target/*.jar user@the-server.ny.gov:/deployment/path/
     - echo "restarting service"
     # - ssh user@the-server "systemctl restart service-name-here"
-

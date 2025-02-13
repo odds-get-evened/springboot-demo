@@ -3,11 +3,12 @@
      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <h1>Spring Boot</h1>
-    <ul>
-        <li sec:authorize="!isAuthenticated()">
+    <h2>test 123</h2>
+    <ul class="list-group">
+        <li class="list-group-item" sec:authorize="!isAuthenticated()">
             <a th:href="@{/account/register}">account registration</a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a th:href="@{/secret/place}">endpoint protected by OIDC authentication.</a>
         </li>
     </ul>

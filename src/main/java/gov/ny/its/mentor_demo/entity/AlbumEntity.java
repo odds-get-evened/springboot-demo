@@ -2,7 +2,6 @@ package gov.ny.its.mentor_demo.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class AlbumEntity {
 	private String title;
 
 	@Column(name = "release_date")
-	private Timestamp releaseDate;
+	private Long releaseDate;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "album_id", referencedColumnName = "id")
@@ -43,11 +42,11 @@ public class AlbumEntity {
 		this.title = title;
 	}
 
-	public Timestamp getReleaseDate() {
+	public Long getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Timestamp releaseDate) {
+	public void setReleaseDate(Long releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

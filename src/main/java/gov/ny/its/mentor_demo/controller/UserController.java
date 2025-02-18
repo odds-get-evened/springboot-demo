@@ -1,6 +1,7 @@
 package gov.ny.its.mentor_demo.controller;
 
 import gov.ny.its.mentor_demo.entity.UserEntity;
+import gov.ny.its.mentor_demo.repo.CustomerRepo;
 import gov.ny.its.mentor_demo.repo.UserRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 	@Autowired
 	private UserRepo userRepo;
+
+	@Autowired
+	private CustomerRepo customerRepo;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;

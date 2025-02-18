@@ -1,6 +1,7 @@
 package gov.ny.its.mentor_demo.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.Length;
 
 @Entity
 @Table(name = "songs")
@@ -11,6 +12,7 @@ public class SongEntity {
 
 	private String title;
 
+	@Column(columnDefinition = "LONGTEXT", length = Length.LONG32)
 	private String lyrics;
 
 	@Column(name = "album_id")

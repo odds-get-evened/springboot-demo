@@ -5,7 +5,8 @@ spring:
     url: jdbc:mariadb://localhost:3306/spring_practice
     username: springuser
     password: springuser
-    driver-class-name: org.mariadb.jdbc.Driver
+    # commented out because new version of spring boot doesn't require driver names.
+    # driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

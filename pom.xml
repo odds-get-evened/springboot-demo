@@ -117,19 +117,26 @@
 				</executions>
 			</plugin>
 			<!-- for dependency checks (vulnerabilities, etc...) -->
+			<!-- removing because NIST API is slow and not completing downloads. -->
+			<!--
 			<plugin>
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
 				<version>12.1.0</version>
 				<configuration>
+			-->
 					<!-- skip artifacts not bundled in distribution -->
+			<!--
 					<skipProvidedScope>true</skipProvidedScope>
+			-->
 					<!-- suppress false positives or dependencies that cannot be changed -->
+			<!--
 					<suppressionFile>suppressed-cves.xml</suppressionFile>
 					<format>HTML</format>
 					<nvdApiKey>43ec37ba-c3c5-493d-9c3c-72a7fba9fa3d</nvdApiKey>
 				</configuration>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 

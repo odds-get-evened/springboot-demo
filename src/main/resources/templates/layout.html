@@ -7,10 +7,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="row vstack gap-3">
-            <div class="row">
-                <div class="">
-                    <div class="row" sec:authorize="!isAuthenticated()">
+        <div class="row">
+            <div class="col">
+                <div class="vstack gap-3">
+                    <div sec:authorize="!isAuthenticated()">
                         <div class="col-2">Not logged in, so <a th:href="@{/oauth2/authorization/okta}">login</a></div>
                     </div>
                     <div class="row" sec:authorize="isAuthenticated()">
@@ -20,9 +20,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" layout:fragment="page_content">
-                content placeholder
+                <div class="vstack gap-3" layout:fragment="page_content">
+                    content placeholder
+                </div>
             </div>
         </div>
     </div>

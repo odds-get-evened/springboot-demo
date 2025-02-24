@@ -21,7 +21,3 @@ okta:
     issuer: https://dev-dhijwyx8bu07cdbi.us.auth0.com/
     client-id: G77xtaHMVX27pVWqwEsg8SNMkGHpeoLW
     client-secret: n-asEHwDB3ESok_HUsq15g9RRyq_HBp-TaADoN1orJl-OjMf2KRCgL2Mkt8cg8Ls
-server:
-    # default port for callbacks is 3000 so change this to match your web service port
-    address: 127.0.0.1
-    port: 8080

@@ -8,11 +8,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class MentorAppConfig {
+	/**
+	 * using SHA encoded passwords instead of the standard database encoding.
+	 * @return the password encoder instance
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new SHAPasswordEncoder();
 	}
 
+	/**
+	 * tells the template engine how to use thymeleaf layouts
+	 * @return the layout
+	 */
 	@Bean
 	public LayoutDialect layoutDialect() {
 		return new LayoutDialect();
